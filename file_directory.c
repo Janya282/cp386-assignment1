@@ -147,7 +147,7 @@ int main() {
                 printf("Enter the file name you want to change to: ");
                 scanf("%s", file_name);
                 printf("Enter the contents that you want to write to the file: ");
-                scanf(" ");
+                getchar();
                 fgets(content, sizeof(content), stdin);
                 content[strcspn(content, "\n")] = '\0';
                 create_write_file(file_name, content);
