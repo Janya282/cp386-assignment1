@@ -69,11 +69,14 @@ void directory_listing(const char *start_dir) {
     while ((entry = readdir(dir)) != NULL) {
         printf("%s\n", entry->d_name);
 
-        if (entry->d_type == DT_DIR) {
+        snprintf(path, sizeof(path), "%s/%s", start_dir, entry->d_name);
+
+        struct stat path_stat;
+        if (stat(path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode)) {
+        
             if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
                 continue;
-
-            snprintf(path, sizeof(path), "%s/%s", start_dir, entry->d_name);
+        
             directory_listing(path);
         }
     }
